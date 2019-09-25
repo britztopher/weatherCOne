@@ -1,7 +1,3 @@
-let db = [
-  {
-    name: 'initial seed',
-    metric: 22.4, 
-    timestamp: now()
-  }
-]
+let db = []
+
+export default db;

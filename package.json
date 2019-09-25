@@ -3,7 +3,8 @@
   "version": "1.0.0",
   "license": "UNLICENSED",
   "scripts": {
-    "start": "nodemon babel-node src/server.js",
+    "start": "babel-node src/server.js",
+    "start:dev": "nodemon --exec babel-node src/server.js",
     "test": "cross-env NODE_NO_WARNINGS=1 take-home-integration-test features --no-color --check-new --command 'npm start' --port 8000 --out-file integration-test.log -- --tags 'not @skip'"
   },
   "engines": {
@@ -12,26 +13,11 @@
   "engineStrict": true,
   "babel": {
     "presets": [
-      "stage-3",
-      [
-        "env",
-        {
-          "targets": {
-            "node": "6.5"
-          },
-          "exclude": [
-            "transform-regenerator"
-          ]
-        }
-      ]
+      "@babel/preset-env"
     ]
   },
   "devDependencies": {
     "@c1-code-test/take-home-tester": "./assets/c1-code-test-take-home-tester-1.1.1.tgz",
-    "babel-cli": "^6.24.1",
-    "babel-core": "^6.25.0",
-    "babel-preset-env": "^1.5.2",
-    "babel-preset-stage-3": "^6.24.1",
     "cross-env": "^5.2.0",
     "nodemon": "^1.19.2"
   },

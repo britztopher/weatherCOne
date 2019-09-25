@@ -22,4 +22,5 @@ export class Measurement {
   getMetric(name) {
     return this.metrics.get(name);
   }
+  
 }

@@ -2,6 +2,7 @@ import express from 'express';
 import * as store from './measurement-store';
 import { Measurement } from './measurement';
 import { HttpError } from '../errors';
+import * as utils from '../common/utils';
 
 const router = express.Router();
 
@@ -10,7 +11,7 @@ export function register(app) {
 }
 
 router.post('/', (req, res) => {
-  const measurement = parseMeasurement(req.body);
+  const measurement = utils.parseMeasurement(req.body);
 
   store.add(measurement);
 
@@ -23,30 +24,13 @@ router.get('/:timestamp', (req, res) => {
   else res.sendStatus(404);
 });
 
-function parseMeasurement({ timestamp, ...metrics }) {
-  const measurement = new Measurement();
-  measurement.timestamp = new Date(timestamp);
-
-  if (isNaN(measurement.timestamp)) throw new HttpError(400);
-
-  for (const metric in metrics) {
-    if (!metrics.hasOwnProperty(metric)) continue;
-
-    const value = metrics[metric];
-    if (isNaN(value)) throw new HttpError(400);
-
-    measurement.setMetric(metric, +value);
-  }
-
-  return measurement;
-}
-
 function serializeMeasurement(measurement) {
   const out = { timestamp: measurement.timestamp.toISOString() };
-
+  console.log(measurement)
   for (const [metric, value] of measurement.metrics.entries()) {
     out[metric] = value;
   }
+  console.log("OUT::", out)
 
   return out;
 }
