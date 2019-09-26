@@ -22,7 +22,8 @@ exports.add = (measurement) => {
 /**
  * Get existing measurement
  * @param {Date} timestamp when measurement was taken
- * @returns {Measurement} measurement for the particular date
+ * @returns {Measurement} measurement for the particular date.  If there are mulitple measurements given a specific 
+ * date then will return last occurence
  */
 exports.fetch = (dbtimestamp) => {
   let result;
@@ -34,8 +35,7 @@ exports.fetch = (dbtimestamp) => {
   })
 
   if (dbRecord) {
-    let { timestamp, ...metrics } = dbRecord;
-    result = utils.parseMeasurement({ timestamp, ...metrics })
+    result = utils.parseMeasurement(dbRecord)
   }
 
   return result;

@@ -52,3 +52,4 @@ const _performStatMath = (stat, measurements, metric) => {
 
   return computedStat;
 }  
+

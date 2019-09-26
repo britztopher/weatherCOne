@@ -12,7 +12,7 @@ exports.parseMeasurement = ({ timestamp, ...metrics }) => {
     if (!Object.prototype.hasOwnProperty.call(metrics, metric)) continue;
 
     const value = metrics[metric];
-    if (isNaN(value) || value < 0) throw new HttpError(400, 'metric value is either NaN or Negative');
+    if (isNaN(value)) throw new HttpError(400, 'metric value is either NaN');
 
     measurement.setMetric(metric, +value);
   }
@@ -22,10 +22,14 @@ exports.parseMeasurement = ({ timestamp, ...metrics }) => {
 
 exports.serializeMeasurement = (measurement) => {
   const out = { timestamp: measurement.timestamp.toISOString() };
-  console.log(measurement)
   for (const [metric, value] of measurement.metrics.entries()) {
     out[metric] = value;
   }
 
   return out;
+}
+
+exports.findMetricMin = (meaurements)=>{
+
+  
 }

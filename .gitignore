@@ -1,7 +1,7 @@
 .DS_Store
 node_modules
 .vscode
-
+coverage
 *.log
 
 # Keep these so the java stub project doesn't cause errors
