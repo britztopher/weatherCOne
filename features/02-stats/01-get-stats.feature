@@ -83,7 +83,7 @@ Feature: Get measurement statistics
 
 
   @new
-  Scenario: Get stats for more than one metric
+  Scenario: Gracefully add stats that havent been implemented
     # GET /stats?<params...>
     When I get stats with parameters:
       | param        | value                    |
