@@ -1,5 +1,6 @@
 import express from 'express';
 import * as store from './measurement-store';
+
 import * as utils from '../common/utils';
 
 const router = express.Router();
@@ -18,16 +19,6 @@ router.post('/', (req, res) => {
 
 router.get('/:timestamp', (req, res) => {
   const result = store.fetch(new Date(req.params.timestamp));
-  if (result) res.json(serializeMeasurement(result));
+  if (result) res.json(utils.serializeMeasurement(result));
   else res.sendStatus(404);
 });
-
-function serializeMeasurement(measurement) {
-  const out = { timestamp: measurement.timestamp.toISOString() };
-  console.log(measurement)
-  for (const [metric, value] of measurement.metrics.entries()) {
-    out[metric] = value;
-  }
-
-  return out;
-}

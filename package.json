@@ -25,6 +25,7 @@
     "@c1-code-test/take-home-tester": "./assets/c1-code-test-take-home-tester-1.1.1.tgz",
     "cross-env": "^5.2.0",
     "eslint": "^6.4.0",
+    "jest": "^24.9.0",
     "nodemon": "^1.19.2"
   },
   "dependencies": {

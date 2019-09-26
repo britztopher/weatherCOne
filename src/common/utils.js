@@ -1,4 +1,4 @@
-import {Measurement} from '../measurements/measurement';
+import { Measurement } from '../measurements/measurement';
 import { HttpError } from '../errors';
 
 exports.parseMeasurement = ({ timestamp, ...metrics }) => {
@@ -12,10 +12,20 @@ exports.parseMeasurement = ({ timestamp, ...metrics }) => {
     if (!Object.prototype.hasOwnProperty.call(metrics, metric)) continue;
 
     const value = metrics[metric];
-    if (isNaN(value)|| value < 0) throw new HttpError(400, 'metric value is either NaN or Negative');
+    if (isNaN(value) || value < 0) throw new HttpError(400, 'metric value is either NaN or Negative');
 
     measurement.setMetric(metric, +value);
   }
 
   return measurement;
+}
+
+exports.serializeMeasurement = (measurement) => {
+  const out = { timestamp: measurement.timestamp.toISOString() };
+  console.log(measurement)
+  for (const [metric, value] of measurement.metrics.entries()) {
+    out[metric] = value;
+  }
+
+  return out;
 }

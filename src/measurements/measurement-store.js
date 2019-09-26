@@ -9,20 +9,9 @@ import  _  from 'lodash';
  */
 exports.add = (measurement) => {
   try {
-
-    let { timestamp, metrics } = measurement;
-    let newDbRecord = {};
-
-    //FIXME:: should i make this a class and then pass measurement as ctor arg?
-    newDbRecord.timestamp = new Date(timestamp).toISOString();
-
-    for (const [key, value] of metrics.entries()) {
-      newDbRecord[key] = value;
-    }
-
-    db.push(newDbRecord);
-    // console.log(db)
-
+    //serialize the measurement for db insertion.  since our db is just a Collection we can just push the 
+    //serialized measurement object right into db.
+    db.push(utils.serializeMeasurement(measurement));
   } catch (e) {
     
     throw new HttpError(500, 'Could not add measurement...Try again later');
@@ -36,8 +25,7 @@ exports.add = (measurement) => {
  * @returns {Measurement} measurement for the particular date
  */
 exports.fetch = (dbtimestamp) => {
-
-
+  let result;
 
   //apparently the tests want just the last index of the measurement when theres more than 1 with the same timestamp
   //so I am just apeasing the tests, since Array doesnt have this, and i dont want to reinvent the wheel, i brought in lodash
@@ -45,14 +33,12 @@ exports.fetch = (dbtimestamp) => {
     return metric.timestamp === dbtimestamp.toISOString();
   })
 
-  if (!dbRecord) {
-    throw new HttpError(404);
+  if (dbRecord) {
+    let { timestamp, ...metrics } = dbRecord;
+    result = utils.parseMeasurement({ timestamp, ...metrics })
   }
 
-  let { timestamp, ...metrics } = dbRecord;
-
-  return utils.parseMeasurement({ timestamp, ...metrics })
-
+  return result;
 }
 
 /**
