@@ -17,7 +17,12 @@ router.get('/', (req, res) => {
 
   const measurements = queryDateRange(fromDateTime, toDateTime);
 
-  res.json(computeStats(measurements, metrics, stats));
+  //if there are no measurements to get stats for then dont run stats function
+  if(measurements.length===0){
+    res.status(404).send(measurements);
+  }else{
+    res.json(computeStats(measurements, metrics, stats))
+  }
 });
 
 function asArray(val) {

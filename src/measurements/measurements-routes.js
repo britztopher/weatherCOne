@@ -20,5 +20,5 @@ router.post('/', (req, res) => {
 router.get('/:timestamp', (req, res) => {
   const result = store.fetch(new Date(req.params.timestamp));
   if (result) res.json(utils.serializeMeasurement(result));
-  else res.sendStatus(404);
+  else res.status(404).send('Connot Find Measurement Based on your Request');
 });

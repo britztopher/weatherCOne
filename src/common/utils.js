@@ -28,8 +28,3 @@ exports.serializeMeasurement = (measurement) => {
 
   return out;
 }
-
-exports.findMetricMin = (meaurements)=>{
-
-  
-}

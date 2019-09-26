@@ -12,9 +12,9 @@ exports.add = (measurement) => {
     //serialize the measurement for db insertion.  since our db is just a Collection we can just push the 
     //serialized measurement object right into db.
     db.push(utils.serializeMeasurement(measurement));
+
   } catch (e) {
-    
-    throw new HttpError(500, 'Could not add measurement...Try again later');
+    throw new HttpError(409, 'Could not add measurement...Try again later');
   }
 
 }
@@ -34,6 +34,7 @@ exports.fetch = (dbtimestamp) => {
     return metric.timestamp === dbtimestamp.toISOString();
   })
 
+  //if the record exists parse it and assign it to be returned
   if (dbRecord) {
     result = utils.parseMeasurement(dbRecord)
   }
