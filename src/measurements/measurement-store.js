@@ -2,6 +2,7 @@ import { HttpError } from '../errors';
 import db from "../database/cacheDB";
 import * as utils from '../common/utils';
 import  _  from 'lodash';
+import logger from '../common/logger';
 
 /**
  * Add new measurement
@@ -12,8 +13,9 @@ exports.add = (measurement) => {
     //serialize the measurement for db insertion.  since our db is just a Collection we can just push the 
     //serialized measurement object right into db.
     db.push(utils.serializeMeasurement(measurement));
-
+    logger.info('measurement added', measurement)
   } catch (e) {
+    logger.error('measurement-store:add: Could not add measurement to DB because', e)
     throw new HttpError(409, 'Could not add measurement...Try again later');
   }
 
@@ -36,6 +38,7 @@ exports.fetch = (dbtimestamp) => {
 
   //if the record exists parse it and assign it to be returned
   if (dbRecord) {
+    logger.debug('measurement-store:fetch:Measurement found ', dbRecord)
     result = utils.parseMeasurement(dbRecord)
   }
 

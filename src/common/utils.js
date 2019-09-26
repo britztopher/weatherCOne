@@ -1,5 +1,6 @@
 import { Measurement } from '../measurements/measurement';
 import { HttpError } from '../errors';
+import logger from './logger';
 
 exports.parseMeasurement = ({ timestamp, ...metrics }) => {
   const measurement = new Measurement();
@@ -12,9 +13,12 @@ exports.parseMeasurement = ({ timestamp, ...metrics }) => {
     if (!Object.prototype.hasOwnProperty.call(metrics, metric)) continue;
 
     const value = metrics[metric];
-    if (isNaN(value)) throw new HttpError(400, 'metric value is either NaN');
-
-    measurement.setMetric(metric, +value);
+    if (isNaN(value)){
+      logger.error('metric value is not a number', value);
+      throw new HttpError(400, 'metric value is either NaN');
+    } 
+    
+    measurement.setMetric(metric, value);
   }
 
   return measurement;
