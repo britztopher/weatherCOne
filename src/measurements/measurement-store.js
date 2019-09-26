@@ -45,9 +45,8 @@ exports.fetch = (dbtimestamp) => {
     throw new HttpError(404);
   }
 
-  console.log('DBRECORD::', dbRecord)
   let { timestamp, ...metrics } = dbRecord;
-  
+
   return utils.parseMeasurement({ timestamp, ...metrics })
 
 }
@@ -58,5 +57,14 @@ exports.fetch = (dbtimestamp) => {
  * @param {Date} end Upper bound for the query, exclusive
  */
 export function queryDateRange(from, to) {
-  throw new HttpError(501);
+  
+  const fromInMs = from.getTime();
+  const toInMs = to.getTime();
+
+  return db.filter(metric =>{
+    return (new Date(metric.timestamp).getTime() >= fromInMs && new Date(metric.timestamp).getTime() <= toInMs);
+
+    
+  })
+  
 }

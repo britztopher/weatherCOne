@@ -9,7 +9,7 @@ export function register(app) {
 }
 
 router.get('/', (req, res) => {
-  const metrics = asArray(req.query.metric);
+  const metrics =  asArray(req.query.metric);
   const stats = asArray(req.query.stat);
 
   const fromDateTime = new Date(req.query.fromDateTime);

@@ -30,7 +30,6 @@ function serializeMeasurement(measurement) {
   for (const [metric, value] of measurement.metrics.entries()) {
     out[metric] = value;
   }
-  console.log("OUT::", out)
 
   return out;
 }
