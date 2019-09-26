@@ -61,10 +61,10 @@ export function queryDateRange(from, to) {
   const fromInMs = from.getTime();
   const toInMs = to.getTime();
 
-  return db.filter(metric =>{
-    return (new Date(metric.timestamp).getTime() >= fromInMs && new Date(metric.timestamp).getTime() <= toInMs);
-
-    
+  let test = db.filter(metric =>{
+    return (new Date(metric.timestamp).getTime() >= fromInMs && new Date(metric.timestamp).getTime() < toInMs);   
   })
+
+  return test;
   
 }
