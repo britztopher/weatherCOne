@@ -1,7 +1,5 @@
 import express from 'express';
 import * as store from './measurement-store';
-import { Measurement } from './measurement';
-import { HttpError } from '../errors';
 import * as utils from '../common/utils';
 
 const router = express.Router();

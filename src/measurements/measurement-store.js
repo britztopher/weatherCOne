@@ -1,6 +1,5 @@
-import { Measurement } from './measurement';
 import { HttpError } from '../errors';
-import db from "./measurements.db";
+import db from "../database/cacheDB";
 import * as utils from '../common/utils';
 import  _  from 'lodash';
 
@@ -12,20 +11,21 @@ exports.add = (measurement) => {
   try {
 
     let { timestamp, metrics } = measurement;
-    let dbRecord = {};
+    let newDbRecord = {};
 
     //FIXME:: should i make this a class and then pass measurement as ctor arg?
-    dbRecord.timestamp = new Date(timestamp).toISOString();
+    newDbRecord.timestamp = new Date(timestamp).toISOString();
 
     for (const [key, value] of metrics.entries()) {
-      dbRecord[key] = value;
+      newDbRecord[key] = value;
     }
 
-    db.push(dbRecord);
-    console.log(db)
+    db.push(newDbRecord);
+    // console.log(db)
 
   } catch (e) {
-    throw new HttpError(204);
+    
+    throw new HttpError(500, 'Could not add measurement...Try again later');
   }
 
 }

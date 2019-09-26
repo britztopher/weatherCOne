@@ -1,6 +1,3 @@
-import { HttpError } from '../errors';
-import { Measurement } from '../measurements/measurement';
-
 /**
  * Compute statistics for given measurements
  * @param {Measurement} measurements
@@ -11,7 +8,6 @@ import { Measurement } from '../measurements/measurement';
 export function computeStats(measurements, metrics, stats) {
 
   let statsAggregation = [];
-
 
   metrics.forEach(metric => {
     let statsExists = measurements.filter(measurement => measurement[metric]).length > 1;
@@ -25,7 +21,6 @@ export function computeStats(measurements, metrics, stats) {
       })
     }
   })
-
 
   return statsAggregation;
 }

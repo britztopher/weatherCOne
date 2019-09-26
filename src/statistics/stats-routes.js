@@ -16,9 +16,8 @@ router.get('/', (req, res) => {
   const toDateTime = new Date(req.query.toDateTime);
 
   const measurements = queryDateRange(fromDateTime, toDateTime);
-  let test = computeStats(measurements, metrics, stats);
 
-  res.json(test);
+  res.json(computeStats(measurements, metrics, stats));
 });
 
 function asArray(val) {

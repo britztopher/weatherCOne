@@ -5,6 +5,7 @@
   "scripts": {
     "start": "babel-node src/server.js",
     "start:dev": "nodemon --exec babel-node src/server.js",
+    "lint": "eslint --ignore-path .gitignore ./src",
     "test": "cross-env NODE_NO_WARNINGS=1 take-home-integration-test features --no-color --check-new --command 'npm start' --port 8000 --out-file integration-test.log -- --tags 'not @skip'"
   },
   "engines": {
@@ -23,6 +24,7 @@
     "@babel/preset-env": "^7.6.2",
     "@c1-code-test/take-home-tester": "./assets/c1-code-test-take-home-tester-1.1.1.tgz",
     "cross-env": "^5.2.0",
+    "eslint": "^6.4.0",
     "nodemon": "^1.19.2"
   },
   "dependencies": {
