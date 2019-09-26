@@ -48,9 +48,9 @@ const _performStatMath = (stat, measurements, metric) => {
 
       });
 
-      computedStat = Math.fround(filteredArr.reduce((total, currVal) => {
+      computedStat =+Math.fround(filteredArr.reduce((total, currVal) => {
         return total + currVal[metric]
-      }, 0) / filteredArr.length).toFixed(1).toString()
+      }, 0) / filteredArr.length).toFixed(1)
       break;
     }
   }

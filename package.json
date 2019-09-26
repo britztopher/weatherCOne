@@ -17,12 +17,17 @@
     ]
   },
   "devDependencies": {
+    "@babel/cli": "^7.6.2",
+    "@babel/core": "^7.6.2",
+    "@babel/node": "^7.6.2",
+    "@babel/preset-env": "^7.6.2",
     "@c1-code-test/take-home-tester": "./assets/c1-code-test-take-home-tester-1.1.1.tgz",
     "cross-env": "^5.2.0",
     "nodemon": "^1.19.2"
   },
   "dependencies": {
     "body-parser": "^1.18.2",
-    "express": "^4.15.3"
+    "express": "^4.15.3",
+    "lodash": "^4.17.15"
   }
 }

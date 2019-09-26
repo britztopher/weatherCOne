@@ -2,6 +2,7 @@ import { Measurement } from './measurement';
 import { HttpError } from '../errors';
 import db from "./measurements.db";
 import * as utils from '../common/utils';
+import  _  from 'lodash';
 
 /**
  * Add new measurement
@@ -37,8 +38,11 @@ exports.add = (measurement) => {
 exports.fetch = (dbtimestamp) => {
 
 
-  let dbRecord = db.find(metrics => {
-    return metrics.timestamp === dbtimestamp.toISOString();
+
+  //apparently the tests want just the last index of the measurement when theres more than 1 with the same timestamp
+  //so I am just apeasing the tests, since Array doesnt have this, and i dont want to reinvent the wheel, i brought in lodash
+  let dbRecord = _.findLast(db, metric => {
+    return metric.timestamp === dbtimestamp.toISOString();
   })
 
   if (!dbRecord) {
@@ -57,14 +61,11 @@ exports.fetch = (dbtimestamp) => {
  * @param {Date} end Upper bound for the query, exclusive
  */
 export function queryDateRange(from, to) {
-  
+
   const fromInMs = from.getTime();
   const toInMs = to.getTime();
 
-  let test = db.filter(metric =>{
-    return (new Date(metric.timestamp).getTime() >= fromInMs && new Date(metric.timestamp).getTime() < toInMs);   
-  })
+  return db.filter(metric => new Date(metric.timestamp).getTime() >= fromInMs && new Date(metric.timestamp).getTime() < toInMs);
 
-  return test;
-  
+
 }
