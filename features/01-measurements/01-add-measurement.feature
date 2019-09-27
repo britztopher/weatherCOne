@@ -1,7 +1,7 @@
 Feature: Add a measurement
   In order to have source information to examine later
   I want to be able to capture a measurement of several metrics at a specific time
-
+  
   Scenario: Add a measurement with valid (numeric) values
     # POST /measurements
     When I submit a new measurement as follows:

@@ -30,7 +30,7 @@ Feature: Get measurement statistics
       | "temperature" | "average" | 27.3  |
 
   Scenario: Get stats for a sparsely reported metric
-     # GET /stats?<params...>
+    # GET /stats?<params...>
     When I get stats with parameters:
       | param        | value                    |
       | stat         | min                      |
@@ -47,7 +47,7 @@ Feature: Get measurement statistics
       | "dewPoint" | "average" | 17.1  |
 
   Scenario: Get stats for a metric that has never been reported
-     # GET /stats?<params...>
+    # GET /stats?<params...>
     When I get stats with parameters:
       | param        | value                    |
       | stat         | min                      |
@@ -93,7 +93,7 @@ Feature: Get measurement statistics
       | metric       | temperature              |
       | metric       | dewPoint                 |
       | metric       | precipitation            |
-      | fromDateTime | 2015-09-301T10Z |
+      | fromDateTime | 2015-09-301T10Z          |
       | toDateTime   | 2015-09-01T17:00:00.000Z |
     Then the response has a status code of 404
     And the response body is an empty array

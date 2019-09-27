@@ -31,15 +31,15 @@ export function computeStats(measurements, metrics, stats){
 }
 
 /**
- * private function to perform the necessary calculations on the given statistical measurements
+ * private function to perform statistical calculations on given measurements
  * @param {Measurement} measurements
  * @param {String[]} metrics
  * @param {String[]} stats
- * @return {*}
+ * @return {computedStat} the computed number given the measurements for data and the stat performed on that data
  */
 const _performStatMath = (stat, measurements, metric) => {
   let computedStat = 0;
-  //filters the measurements array by first stripping out the undefines then filters on where metrics are empty
+  //filters the measurements array by first stripping out the undefined then filters on where metrics are empty
   let filterUndefinedAndNoMetrics = measurements.filter(measurement => measurement[metric]).map(measurement => measurement[metric])
 
   switch (stat) {
